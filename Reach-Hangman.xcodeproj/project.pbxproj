@@ -12,6 +12,12 @@
 		8186A2B42351081B00AAF3B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8186A2B22351081B00AAF3B5 /* Main.storyboard */; };
 		8186A2B62351081D00AAF3B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8186A2B52351081D00AAF3B5 /* Assets.xcassets */; };
 		8186A2B92351081D00AAF3B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8186A2B72351081D00AAF3B5 /* LaunchScreen.storyboard */; };
+		8186A2C823515F4500AAF3B5 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8186A2C723515F4500AAF3B5 /* NetworkClient.swift */; };
+		8186A2CA23515F7200AAF3B5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8186A2C923515F7200AAF3B5 /* NetworkError.swift */; };
+		8186A2CC2351602400AAF3B5 /* HTTPUrlResponseApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8186A2CB2351602400AAF3B5 /* HTTPUrlResponseApiError.swift */; };
+		8186A2CE2351605000AAF3B5 /* EndpointBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8186A2CD2351605000AAF3B5 /* EndpointBuilder.swift */; };
+		8186A2D023518E2900AAF3B5 /* DictionaryAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8186A2CF23518E2900AAF3B5 /* DictionaryAPIClient.swift */; };
+		8186A2D323518FC200AAF3B5 /* DictionaryAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8186A2D223518FC200AAF3B5 /* DictionaryAPIModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +28,12 @@
 		8186A2B52351081D00AAF3B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8186A2B82351081D00AAF3B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8186A2BA2351081D00AAF3B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8186A2C723515F4500AAF3B5 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		8186A2C923515F7200AAF3B5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		8186A2CB2351602400AAF3B5 /* HTTPUrlResponseApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPUrlResponseApiError.swift; sourceTree = "<group>"; };
+		8186A2CD2351605000AAF3B5 /* EndpointBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointBuilder.swift; sourceTree = "<group>"; };
+		8186A2CF23518E2900AAF3B5 /* DictionaryAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryAPIClient.swift; sourceTree = "<group>"; };
+		8186A2D223518FC200AAF3B5 /* DictionaryAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryAPIModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +66,8 @@
 		8186A2AD2351081B00AAF3B5 /* Reach-Hangman */ = {
 			isa = PBXGroup;
 			children = (
+				8186A2D123518F6100AAF3B5 /* API Model */,
+				8186A2C623515EA900AAF3B5 /* Networking */,
 				8186A2AE2351081B00AAF3B5 /* AppDelegate.swift */,
 				8186A2B02351081B00AAF3B5 /* ViewController.swift */,
 				8186A2B22351081B00AAF3B5 /* Main.storyboard */,
@@ -62,6 +76,26 @@
 				8186A2BA2351081D00AAF3B5 /* Info.plist */,
 			);
 			path = "Reach-Hangman";
+			sourceTree = "<group>";
+		};
+		8186A2C623515EA900AAF3B5 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				8186A2CF23518E2900AAF3B5 /* DictionaryAPIClient.swift */,
+				8186A2CD2351605000AAF3B5 /* EndpointBuilder.swift */,
+				8186A2C723515F4500AAF3B5 /* NetworkClient.swift */,
+				8186A2C923515F7200AAF3B5 /* NetworkError.swift */,
+				8186A2CB2351602400AAF3B5 /* HTTPUrlResponseApiError.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		8186A2D123518F6100AAF3B5 /* API Model */ = {
+			isa = PBXGroup;
+			children = (
+				8186A2D223518FC200AAF3B5 /* DictionaryAPIModel.swift */,
+			);
+			path = "API Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +169,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8186A2CE2351605000AAF3B5 /* EndpointBuilder.swift in Sources */,
 				8186A2B12351081B00AAF3B5 /* ViewController.swift in Sources */,
+				8186A2CC2351602400AAF3B5 /* HTTPUrlResponseApiError.swift in Sources */,
+				8186A2D023518E2900AAF3B5 /* DictionaryAPIClient.swift in Sources */,
+				8186A2D323518FC200AAF3B5 /* DictionaryAPIModel.swift in Sources */,
+				8186A2CA23515F7200AAF3B5 /* NetworkError.swift in Sources */,
 				8186A2AF2351081B00AAF3B5 /* AppDelegate.swift in Sources */,
+				8186A2C823515F4500AAF3B5 /* NetworkClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
