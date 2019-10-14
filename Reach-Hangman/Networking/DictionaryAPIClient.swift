@@ -6,8 +6,6 @@ protocol WordsRetrievable {
 
 class DictionaryAPIClient: WordsRetrievable {
     private let client: DataRetrieving
-    private var nextPeopleURLString: String?
-    private var nextPlanetsURLString: String?
 
     init(dataRetriever: DataRetrieving = NetworkClient()) {
         self.client = dataRetriever
