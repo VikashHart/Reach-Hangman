@@ -6,9 +6,10 @@ class LevelCollectionViewCell: UICollectionViewCell {
 
     lazy var levelLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: font, size: 18)
+        label.font = UIFont(name: font, size: 20)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textAlignment = .center
-        label.textColor = .darkGray
+        label.textColor = .black
         label.backgroundColor = .clear
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
@@ -29,7 +30,7 @@ class LevelCollectionViewCell: UICollectionViewCell {
     }
 
     private func commonInit() {
-        backgroundColor = UIColor.white
+        backgroundColor = UIColor.orange
         setupViews()
     }
 
@@ -49,5 +50,9 @@ class LevelCollectionViewCell: UICollectionViewCell {
         levelLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
         levelLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+
+    func updateWith(level: Int) {
+        levelLabel.text = "Level \(level + 1)"
     }
 }

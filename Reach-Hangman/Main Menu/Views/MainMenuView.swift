@@ -7,7 +7,7 @@ class MainMenuView: UIView {
     lazy var gameTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Hangman"
-        label.font = UIFont(name: font, size: 30)
+        label.font = UIFont(name: font, size: 70)
         label.textAlignment = .center
         label.textColor = .orange
         label.backgroundColor = .clear
@@ -18,9 +18,9 @@ class MainMenuView: UIView {
 
     lazy var selectedDifficultyLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: font, size: 18)
+        label.font = UIFont(name: font, size: 24)
         label.textAlignment = .center
-        label.textColor = .white
+        label.textColor = .orange
         label.backgroundColor = .clear
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +31,10 @@ class MainMenuView: UIView {
         let button = UIButton()
         button.setTitle("Select difficulty", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .medium)
         button.backgroundColor = .orange
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -40,7 +43,10 @@ class MainMenuView: UIView {
         let button = UIButton()
         button.setTitle("Start Game", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .medium)
         button.backgroundColor = .orange
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -56,7 +62,7 @@ class MainMenuView: UIView {
     }
 
     private func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .black
         setupViews()
     }
 
@@ -70,41 +76,41 @@ class MainMenuView: UIView {
     private func setupTitleLabel() {
         addSubview(gameTitleLabel)
         NSLayoutConstraint.activate([
-            gameTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: safeAreaLayoutGuide.topAnchor, multiplier: 0.1),
+            gameTitleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 60),
             gameTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             gameTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            gameTitleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2)
             ])
     }
 
     private func setupDifficultyLabel() {
         addSubview(selectedDifficultyLabel)
         NSLayoutConstraint.activate([
-            selectedDifficultyLabel.topAnchor.constraint(equalToSystemSpacingBelow: gameTitleLabel.bottomAnchor, multiplier: 0.1),
-            selectedDifficultyLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            selectedDifficultyLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            selectedDifficultyLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
+            selectedDifficultyLabel.topAnchor.constraint(equalTo: gameTitleLabel.bottomAnchor, constant: 80),
+            selectedDifficultyLabel.centerXAnchor.constraint(equalTo: centerXAnchor),            selectedDifficultyLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6)
             ])
     }
 
     private func setupDifficultyButton() {
         addSubview(difficultyButton)
         NSLayoutConstraint.activate([
-            difficultyButton.topAnchor.constraint(equalToSystemSpacingBelow: selectedDifficultyLabel.bottomAnchor, multiplier: 0.1),
-            difficultyButton.leadingAnchor.constraint(equalTo: leadingAnchor),
-            difficultyButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-            difficultyButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
+            difficultyButton.topAnchor.constraint(equalTo: selectedDifficultyLabel.bottomAnchor, constant: 80),
+            difficultyButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            difficultyButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.08),
+            difficultyButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6)
             ])
     }
 
     private func setupStartButton() {
         addSubview(startGameButton)
         NSLayoutConstraint.activate([
-            startGameButton.topAnchor.constraint(equalToSystemSpacingBelow: difficultyButton.bottomAnchor, multiplier: 0.1),
-            startGameButton.leadingAnchor.constraint(equalTo: leadingAnchor),
-            startGameButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-            startGameButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1),
-            startGameButton.bottomAnchor.constraint(equalToSystemSpacingBelow: safeAreaLayoutGuide.bottomAnchor, multiplier: 0.1)
+            startGameButton.topAnchor.constraint(equalTo: difficultyButton.bottomAnchor, constant: 60),
+            startGameButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            startGameButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.08),
+            startGameButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6),
             ])
+    }
+
+    func updateWith(level: Int) {
+        selectedDifficultyLabel.text = "Level \(level + 1)"
     }
 }
