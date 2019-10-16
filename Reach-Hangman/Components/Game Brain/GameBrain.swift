@@ -20,7 +20,6 @@ class GameBrainModel {
         usedGuesses = [String]()
         wrongAnswerCount = 0
         winStatus = .playing
-
     }
 
     func setupGame(word: String) {
@@ -57,11 +56,9 @@ class GameBrainModel {
             } else {
                 checkGameStatus()
             }
-
         default:
             break
         }
-
     }
 
     private func setWord(word: String) {
