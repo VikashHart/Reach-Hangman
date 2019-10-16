@@ -4,7 +4,7 @@ class LevelSectionView: UIView {
 
     lazy var dismissButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        button.backgroundColor = UIColor.white.withAlphaComponent(0.7)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -15,7 +15,7 @@ class LevelSectionView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor.orange
+        collectionView.backgroundColor = UIColor.white
         collectionView.register(LevelCollectionViewCell.self, forCellWithReuseIdentifier: cell)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -28,6 +28,8 @@ class LevelSectionView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        self.collectionView.layer.masksToBounds = true
+        self.collectionView.layer.cornerRadius = 10
         commonInit()
     }
 
