@@ -1,6 +1,6 @@
 import Foundation
 
-enum winState{
+enum WinState{
     case win
     case lose
     case playing
@@ -8,16 +8,16 @@ enum winState{
 
 class GameBrainModel {
 
-    var secretWord = [String]()
+    var secretWord = String()
     var placeholder = [String]()
     var usedGuesses = [String]()
     var wrongAnswerCount: Int = 0
-    var winStatus: winState = .playing
+    var winStatus: WinState = .playing
 
     func resetGame() {
         placeholder = []
-        secretWord = []
-        usedGuesses = [String]()
+        secretWord = String()
+        usedGuesses = []
         wrongAnswerCount = 0
         winStatus = .playing
     }
@@ -28,7 +28,9 @@ class GameBrainModel {
     }
 
     func guessChecker(guess: String) {
-        guard guess.count == 1 && guess.isOnlyLetters() && !usedGuesses.contains(guess) || guess.count == secretWord.count && guess.isOnlyLetters() else { return }
+        guard guess.count == 1 && guess.isOnlyLetters() && !usedGuesses.contains(guess)
+            || guess.count == secretWord.count && guess.isOnlyLetters() && !usedGuesses.contains(guess)
+            else { return }
         let entry = guess.lowercased()
 
         switch entry.count {
@@ -46,10 +48,8 @@ class GameBrainModel {
                 }
                 checkGameStatus()
             }
-
         case placeholder.count:
-            let word = secretWord.reduce("", +)
-            if entry != word {
+            if entry != secretWord {
                 wrongAnswerCount += 1
                 usedGuesses.append(entry)
                 checkGameStatus()
@@ -62,9 +62,7 @@ class GameBrainModel {
     }
 
     private func setWord(word: String) {
-        for element in word {
-            secretWord.append(String(element.lowercased()))
-        }
+        secretWord = word
     }
 
     private func createPlaceholders(word: String) {
