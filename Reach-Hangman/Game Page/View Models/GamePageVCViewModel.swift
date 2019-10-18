@@ -15,7 +15,7 @@ protocol GameVCViewModeling {
     var wrongAnswerCount: Int { get }
     var winStatus: WinState { get }
     var usedGuesses: String { get }
-
+    
     func newGame()
     func check(guess: String)
     func getColor(index: Int) -> UIColor
@@ -37,43 +37,43 @@ class GameVCViewModel: GameVCViewModeling {
             onStatusChanged?()
         }
     }
-
+    
     var placeholder: String = "" {
         didSet {
             self.onPlaceholdersUpdated?()
         }
     }
-
+    
     var wrongAnswerCount: Int = 0 {
         didSet {
             self.onWrongAnswerCountUpdated?()
         }
     }
-
+    
     var winStatus: WinState = .playing {
         didSet {
             self.onWinStateChanged?()
         }
     }
-
+    
     var usedGuesses: String = "" {
         didSet {
             onGuessesUpdated?()
         }
     }
-
+    
     private var usedLetters: Set<Character> = [] {
         didSet {
             combineLettersAndPhrases()
         }
     }
-
+    
     private var usedPhrases: Set<String> = [] {
         didSet {
             combineLettersAndPhrases()
         }
     }
-
+    
     private var apiClient: WordsRetrievable
     private let underscore: String = "_ "
     private let separator: String = ", "
@@ -90,29 +90,29 @@ class GameVCViewModel: GameVCViewModeling {
         self.numberOfSpaces = numberOfCells + 1
         self.apiClient = apiClient
     }
-
+    
     func newGame() {
         resetGame()
         getWord()
     }
-
+    
     func check(guess: String) {
-
+        
         let result: GuessResult
         if guess.count == 1,
             let letter = guess.first {
             result = check(letter: letter)
-
+            
         } else {
             result = checkPhrase(phrase: guess)
-
+            
         }
         update(with: result)
     }
-
+    
     func getColor(index: Int) -> UIColor {
         var color = UIColor()
-
+        
         if index + 1 <= wrongAnswerCount {
             switch index {
             case 0:
@@ -135,7 +135,7 @@ class GameVCViewModel: GameVCViewModeling {
         }
         return color
     }
-
+    
     private func getWord() {
         apiClient.getWord(difficulty: difficultyLevel) { [weak self] (result) in
             switch result {
@@ -148,7 +148,7 @@ class GameVCViewModel: GameVCViewModeling {
             }
         }
     }
-
+    
     private func resetGame() {
         statusMessage = "Playing"
         placeholder = ""
@@ -159,20 +159,20 @@ class GameVCViewModel: GameVCViewModeling {
         wrongAnswerCount = 0
         winStatus = .playing
     }
-
+    
     private func setupGame(word: String) {
         setWord(word: word)
         createPlaceholders(word: word)
     }
-
+    
     private func setWord(word: String) {
         secretWord = word
     }
-
+    
     private func createPlaceholders(word: String) {
         placeholder = String(repeating: underscore, count: word.count)
     }
-
+    
     private func combineLettersAndPhrases() {
         var letters = String()
         let phrases = usedPhrases.joined(separator: separator)
@@ -182,7 +182,7 @@ class GameVCViewModel: GameVCViewModeling {
         }
         usedGuesses = letters + phrases
     }
-
+    
     private func checkGameStatus() {
         if !placeholder.contains(underscore) {
             winStatus = .win
@@ -194,59 +194,60 @@ class GameVCViewModel: GameVCViewModeling {
             winStatus = .playing
         }
     }
-
+    
     private func update(with result: GuessResult) {
         switch result {
-
+            
         case .alreadyUsed:
             statusMessage = "Already Used!"
-
+            
         case .miss(let newPlaceholder):
-             statusMessage = "Strike!"
-             placeholder = newPlaceholder
-             wrongAnswerCount += 1
+            statusMessage = "Strike!"
+            placeholder = newPlaceholder
+            wrongAnswerCount += 1
             checkGameStatus()
-
+            
         case .hit(let newPlaceholder):
-             statusMessage = "Correct!"
-             placeholder = newPlaceholder
+            statusMessage = "Correct!"
+            placeholder = newPlaceholder
             checkGameStatus()
-
+            
         case .exact(let newPlaceholder):
-             statusMessage = "Exact Match!"
-             placeholder = newPlaceholder
-             checkGameStatus()
-
+            statusMessage = "Exact Match!"
+            placeholder = newPlaceholder
+            checkGameStatus()
+            
         }
     }
-
+    
     private func check(letter: Character) -> GuessResult {
         guard !usedLetters.contains(letter)
             else { return .alreadyUsed }
-
+        
         usedLetters.insert(letter)
         let redacted = secretWord.replaceCharacters(with: underscore, allowedCharacters: usedLetters)
 
         guard secretWord.contains(letter)
             else { return .miss(redacted) }
-
+        
         if secretWord == redacted {
             return .exact(redacted)
         } else {
             return .hit(redacted)
         }
     }
-
+    
     private func checkPhrase(phrase: String) -> GuessResult {
         guard !usedPhrases.contains(phrase)
             else { return .alreadyUsed }
-
+        
         if secretWord == phrase {
             return .exact(phrase)
-
+            
         } else {
             usedPhrases.insert(phrase)
             return .miss(phrase)
+            
         }
     }
 }
