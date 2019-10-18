@@ -61,11 +61,7 @@ class GameViewController: UIViewController {
             switch winState {
             case .playing:
                 return
-            case .win:
-                self?.gamePageView.updateWith(status: status)
-                self?.view.resignFirstResponder()
-                self?.presentNewGameAlert()
-            case .lose:
+            case .win, .lose:
                 self?.gamePageView.updateWith(status: status)
                 self?.view.resignFirstResponder()
                 self?.presentNewGameAlert()
