@@ -75,6 +75,8 @@ class GameVCViewModel: GameVCViewModeling {
     }
 
     private var apiClient: WordsRetrievable
+    private let underscore: String = "_ "
+    private let separator: String = ", "
 
     init(difficultyLevel: DifficultyLevel,
          statusMessage: String = "Playing",
@@ -168,21 +170,21 @@ class GameVCViewModel: GameVCViewModeling {
     }
 
     private func createPlaceholders(word: String) {
-        placeholder = String(repeating: "_ ", count: secretWord.count)
+        placeholder = String(repeating: underscore, count: word.count)
     }
 
     private func combineLettersAndPhrases() {
         var letters = String()
-        let phrases = usedPhrases.joined(separator: ", ")
+        let phrases = usedPhrases.joined(separator: separator)
         for char in usedLetters {
             let letter = String(char)
-            letters.append(letter + ", ")
+            letters.append(letter + separator)
         }
         usedGuesses = letters + phrases
     }
 
     private func checkGameStatus() {
-        if !placeholder.contains("_ ") {
+        if !placeholder.contains(underscore) {
             winStatus = .win
             statusMessage = "You won!"
         } else if wrongAnswerCount == 6 {
@@ -223,7 +225,7 @@ class GameVCViewModel: GameVCViewModeling {
             else { return .alreadyUsed }
 
         usedLetters.insert(letter)
-        let redacted = secretWord.replaceCharacters(with: "_ ", allowedCharacters: usedLetters)
+        let redacted = secretWord.replaceCharacters(with: underscore, allowedCharacters: usedLetters)
 
         guard secretWord.contains(letter)
             else { return .miss(redacted) }
@@ -245,7 +247,6 @@ class GameVCViewModel: GameVCViewModeling {
         } else {
             usedPhrases.insert(phrase)
             return .miss(phrase)
-
         }
     }
 }
