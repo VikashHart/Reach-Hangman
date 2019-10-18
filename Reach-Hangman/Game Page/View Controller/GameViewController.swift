@@ -56,7 +56,7 @@ class GameViewController: UIViewController {
     private func bindWinState() {
         viewModel.onWinStateChanged = { [weak self] in
             guard let winState = self?.viewModel.winStatus,
-            let status = self?.viewModel.statusMessage
+                let status = self?.viewModel.statusMessage
                 else { return }
             switch winState {
             case .playing:
@@ -138,8 +138,8 @@ extension GameViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrikeCell", for: indexPath) as? StrikeCollectionViewCell else { return UICollectionViewCell() }
-        let color: UIColor = indexPath.row + 1 <= viewModel.wrongAnswerCount ? viewModel.getColor(index: indexPath.row) : .white
-            cell.colorUIView.backgroundColor = color
+        let color: UIColor = viewModel.getColor(index: indexPath.row)
+        cell.colorUIView.backgroundColor = color
 
         return cell
     }
