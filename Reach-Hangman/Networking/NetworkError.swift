@@ -1,7 +1,7 @@
 import Foundation
 
 enum NetworkError: Error {
-    case jsonDecoding(Error)
+    case decodingError
     case networkError
     case clientError
     case serverError

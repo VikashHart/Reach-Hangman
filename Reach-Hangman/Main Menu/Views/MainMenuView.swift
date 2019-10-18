@@ -8,6 +8,7 @@ class MainMenuView: UIView {
         let label = UILabel()
         label.text = "Hangman"
         label.font = UIFont(name: font, size: 70)
+        label.font = UIFont.systemFont(ofSize: 70, weight: .medium)
         label.textAlignment = .center
         label.textColor = .orange
         label.backgroundColor = .clear
@@ -18,7 +19,8 @@ class MainMenuView: UIView {
 
     lazy var selectedDifficultyLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: font, size: 24)
+        label.font = UIFont(name: font, size: 30)
+        label.font = UIFont.systemFont(ofSize: 30, weight: .medium)
         label.textAlignment = .center
         label.textColor = .orange
         label.backgroundColor = .clear
@@ -111,6 +113,6 @@ class MainMenuView: UIView {
     }
 
     func updateWith(level: Int) {
-        selectedDifficultyLabel.text = "Level \(level + 1)"
+        selectedDifficultyLabel.text = "Level \(level)"
     }
 }

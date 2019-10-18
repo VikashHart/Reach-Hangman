@@ -11,4 +11,17 @@ extension String {
             return false
         }
     }
+
+    func replaceCharacters(with replacement: String, allowedCharacters: Set<Character>) -> String {
+        var redactedString = ""
+
+        for char in self {
+            if allowedCharacters.contains(char) {
+                redactedString += String(char)
+            } else {
+                redactedString += replacement
+            }
+        }
+        return redactedString
+    }
 }

@@ -1,6 +1,7 @@
 import UIKit
 
 class MainCoordinator: Coordinator {
+
     var navigationController: UINavigationController
 
     init(navigationController: UINavigationController) {
@@ -17,5 +18,9 @@ class MainCoordinator: Coordinator {
         navigationController.popViewController(animated: true)
     }
 
-
+    func presentGamePage(difficultyLevel: DifficultyLevel) {
+        let vc = GameViewController(difficultyLevel: difficultyLevel)
+        vc.coordinator = self
+        navigationController.pushViewController(vc, animated: false)
+    }
 }
