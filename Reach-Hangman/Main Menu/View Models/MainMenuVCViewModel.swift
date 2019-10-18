@@ -5,25 +5,25 @@ protocol MainMenuVCViewModeling {
     var numberOfCells: CGFloat { get }
     var numberOfSpaces: CGFloat { get }
     var numberOfLevels: Int { get }
-    var selectedDifficulty: DifficultyEndpoint? { get set }
-    var wordData: [Word]? { get }
-    var onDataRecieved: (() -> Void)? { get set }
+    var selectedDifficulty: DifficultyLevel { get }
 
-    func fetchNewData()
     func setLevel(index: Int)
 }
 
 class MainMenuVCViewModel: MainMenuVCViewModeling {
-    var cellSpacing: CGFloat
-    var numberOfCells: CGFloat
-    var numberOfSpaces: CGFloat
-    var numberOfLevels: Int
-    var selectedDifficulty: DifficultyEndpoint?
-    var wordData: [Word]?
-    var onDataRecieved: (() -> Void)?
+    private(set) var cellSpacing: CGFloat
+    private(set) var numberOfCells: CGFloat
+    private(set) var numberOfSpaces: CGFloat
+    private(set) var numberOfLevels: Int
+    private(set) var selectedDifficulty: DifficultyLevel
     private let apiClient: WordsRetrievable
 
-    init(cellSpacing: CGFloat = 10, numberOfCells: CGFloat = 1, numberOfLevels: Int = 10, apiClient: WordsRetrievable = DictionaryAPIClient()) {
+    init(difficulty: DifficultyLevel = .three,
+        cellSpacing: CGFloat = 10,
+        numberOfCells: CGFloat = 1,
+        numberOfLevels: Int = 10,
+        apiClient: WordsRetrievable = DictionaryAPIClient()) {
+        self.selectedDifficulty = difficulty
         self.cellSpacing = cellSpacing
         self.numberOfCells = numberOfCells
         self.numberOfSpaces = numberOfCells + 1
@@ -31,34 +31,9 @@ class MainMenuVCViewModel: MainMenuVCViewModeling {
         self.apiClient = apiClient
     }
 
-    func fetchNewData() {
-
-    }
-
     func setLevel(index: Int) {
-        switch index {
-        case 0:
-            selectedDifficulty = .one
-        case 1:
-            selectedDifficulty = .two
-        case 2:
-            selectedDifficulty = .three
-        case 3:
-            selectedDifficulty = .four
-        case 4:
-            selectedDifficulty = .five
-        case 5:
-            selectedDifficulty = .six
-        case 6:
-            selectedDifficulty = .seven
-        case 7:
-            selectedDifficulty = .eight
-        case 8:
-            selectedDifficulty = .nine
-        case 9:
-            selectedDifficulty = .ten
-        default:
-            break
-        }
+        guard let difficulty = DifficultyLevel(rawValue: index + 1)
+            else { fatalError("could not generate difficulty level for index value \(index)")}
+        selectedDifficulty = difficulty
     }
 }

@@ -3,13 +3,18 @@ import UIKit
 class MainMenuViewController: UIViewController {
 
     weak var coordinator: MainCoordinator?
-    private let viewModel: MainMenuVCViewModeling = MainMenuVCViewModel()
+    private var viewModel: MainMenuVCViewModeling = MainMenuVCViewModel()
     private let mainMenuView = MainMenuView()
     private let levelSelectionView = LevelSectionView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureVC()        
+        configureVC()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
     }
 
     private func configureVC() {
@@ -19,13 +24,19 @@ class MainMenuViewController: UIViewController {
         configureButtons()
         levelSelectionView.collectionView.delegate = self
         levelSelectionView.collectionView.dataSource = self
+        mainMenuView.updateWith(level: viewModel.selectedDifficulty.rawValue)
     }
 
     private func configureButtons(){
         mainMenuView.difficultyButton.addTarget(self,
                                                 action: #selector(selectLevel),
                                                 for: .touchUpInside)
-        levelSelectionView.dismissButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+        mainMenuView.startGameButton.addTarget(self,
+                                               action: #selector(startGame),
+                                               for: .touchUpInside)
+        levelSelectionView.dismissButton.addTarget(self,
+                                                   action: #selector(dismissView),
+                                                   for: .touchUpInside)
     }
 
     @objc private func selectLevel() {
@@ -33,7 +44,7 @@ class MainMenuViewController: UIViewController {
     }
 
     @objc private func startGame() {
-
+        coordinator?.presentGamePage(difficultyLevel: viewModel.selectedDifficulty)
     }
 
     @objc private func dismissView() {
@@ -71,7 +82,8 @@ extension MainMenuViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.setLevel(index: indexPath.row)
-        mainMenuView.updateWith(level: indexPath.row)
+        let level = viewModel.selectedDifficulty
+        mainMenuView.updateWith(level: level.rawValue)
         levelSelectionView.removeFromSuperview()
     }
 }
