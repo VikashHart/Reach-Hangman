@@ -182,6 +182,7 @@ extension GameViewController: UITextFieldDelegate {
             return true
         case false:
             gamePageView.statusLabel.text = "invalid entry"
+            textField.text = ""
             return false
         }
     }
